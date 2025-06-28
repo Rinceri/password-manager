@@ -271,7 +271,7 @@ class TableScreen(Screen):
         self.app.push_screen(NewEntryScreen(self.profile), add_record)
 
     def action_logout(self) -> None:
-        from password_manager.main import LoginScreen
+        from src.main import LoginScreen
         self.app.switch_screen(LoginScreen())
 
     def action_delete_profile(self) -> None:
