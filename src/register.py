@@ -54,7 +54,7 @@ class VerticalButtons(Vertical):
     @on(Button.Pressed, "#back_button")
     def on_back(self):
         # to prevent cycling import
-        from src.main import LoginScreen
+        from main import LoginScreen
 
         self.app.switch_screen(LoginScreen())
 
