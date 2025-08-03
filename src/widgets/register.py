@@ -1,32 +1,11 @@
-from textual.app import ComposeResult
-from textual.screen import Screen
 from textual.containers import Vertical
-from textual.widgets import Input, Button, Static
+from textual.widgets import Button, Static
 from textual import on
+from textual.app import ComposeResult
 
-from model import register_model
-
-from table import TableScreen
-
-class SubmitInput(Input):
-    """
-    Custom input class that has modified keybind where ENTER key  
-    presses the button with class "submit" on the screen
-    """
-    BINDINGS = [("enter", "press_submit", "Presses button with class submit")]
-
-    def action_press_submit(self):
-        self.screen.query_one(".submit", Button).press()
-        
-class Register:
-    def field_filled(self, value: str) -> bool:
-        return value != ""
-    
-    def commit(self, username: str, password: str) -> None:
-        pf = register_model.ProfileFactory()
-        profile = pf.register_profile(username, password)
-
-        return profile
+from widgets.submit_input import SubmitInput
+from controller.register import RegisterController
+from helper.switch_message import Switch
 
 
 class VerticalButtons(Vertical):
@@ -51,35 +30,33 @@ class VerticalButtons(Vertical):
         yield Button("Register",id="register_button", classes="submit")
         yield Button("Back", id="back_button")
 
+    def field_empty(self, value: str) -> bool:
+        return value.strip() == ""
+
     @on(Button.Pressed, "#back_button")
     def on_back(self):
-        # to prevent cycling import
-        from main import LoginScreen
-
-        self.app.switch_screen(LoginScreen())
+        # switch to login
+        self.post_message(Switch(switch_else=True))
 
     @on(Button.Pressed, "#register_button")
     def on_register(self):
-        reg_check = Register()
-        username = ""
+        controller = RegisterController()
         first_password = ""
 
         for input_ in self.parent.query("SubmitInput").results(SubmitInput):
             # empty field check
-            if not reg_check.field_filled(input_.value):
+            if self.field_empty(input_.value):
                 self.__send_update(f"Please fill {input_.name} field")
                 return
 
             # new_username checks
             if input_.id == "new_username":
                 username = input_.value
-                continue
             
             # password/repeat password check
             elif input_.id == "new_password":
                 # save password for check later
                 first_password = input_.value
-                continue
 
             elif input_.id == "new_password_again":
                 # check password match
@@ -89,17 +66,15 @@ class VerticalButtons(Vertical):
                     self.__send_update("Passwords don't match")
                     return
         
-        try:
-            profile = reg_check.commit(username, first_password)
-            self.__send_update("Account has been registered!")
-            self.app.switch_screen(TableScreen(profile))
-            
-        except register_model.UsernameAlreadyExists:
-            self.__send_update("Username already exists")
+        # details are entered correctly
+        register_status = controller.register(username, first_password)
+        self.__send_update(register_status.message)
+
+        if register_status.status:
+            self.post_message(Switch(account=register_status.account))
 
 
 class RegisterWidget(Vertical):
-        
     def compose(self) -> ComposeResult:
         # username submitInput widget
         username = SubmitInput(
@@ -132,8 +107,6 @@ class RegisterWidget(Vertical):
             name = "password"
         )
 
-        re_password.border_title = "Re-enter Password"
-        
         add_msg = Static(id = "additional_message")
         
         # yield it all
@@ -142,17 +115,3 @@ class RegisterWidget(Vertical):
         yield re_password
         yield VerticalButtons(add_msg)
         yield add_msg
-
-
-class RegisterScreen(Screen):
-    """
-    The login screen. First screen when opening the app
-    """
-    CSS_PATH = "register.tcss"
-    def __init__(self):
-        super().__init__(classes="center_screen")
-
-    def compose(self) -> ComposeResult:
-        register_widget = RegisterWidget()
-        register_widget.border_title = "Password Manager"
-        yield register_widget
