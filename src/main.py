@@ -4,7 +4,6 @@ from controller.screen_controller import ScreenController
 
 
 class MainApp(App):
-    # CSS_PATH = "main.tcss"
 
     def on_mount(self):
         ScreenController(self).push_login()

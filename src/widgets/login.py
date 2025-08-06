@@ -20,8 +20,8 @@ class VerticalButtons(Vertical):
         super().__init__()
 
     def compose(self) -> ComposeResult:
-        yield Button("Login",id="login_button", classes="submit")
-        yield Button("Create account", id="register_button")
+        yield Button("Login",id="login_button", classes="submit elements")
+        yield Button("Create account", id="register_button", classes="elements")
 
     @on(Button.Pressed, "#register_button")
     def on_register(self):
@@ -59,28 +59,29 @@ class VerticalButtons(Vertical):
 class LoginWidget(Vertical):
     def __init__(self, controller: LoginController) -> None:
         self.controller = controller
-        super().__init__()
+        super().__init__(classes="centered")
 
     def compose(self) -> ComposeResult:
         username = SubmitInput(
             placeholder="Enter username", 
-            classes="input", 
+            classes="input elements",
             id = "username",
             name = "username"
         )
         username.border_title = "Username"
-
+        
         password = SubmitInput(
             placeholder="Enter password", 
             password=True, 
-            classes="input",
+            classes="input elements",
             id="inp_password",
             name="password"
         )
         password.border_title = "Password"
 
-        add_msg = Static(id = "additional_message")
+        add_msg = Static(id = "additional_message", classes="elements")
         
+        yield Static("<< Password Manager >>", classes="elements", id = "title")
         yield username
         yield password
         yield VerticalButtons(self.controller, add_msg)
