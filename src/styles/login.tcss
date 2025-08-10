@@ -1,12 +1,15 @@
+$background: #191918
+$main_background: #3D4659
+
 LoginScreen {
-    background: #191918
+    background: $background
 }
 
 /* main widget */
 LoginWidget {
     width: auto;
     height: auto;
-    background: #3D4659;
+    background: $main_background;
     padding: 0 1 0 1;
     border: tall #677085;
 }
@@ -38,7 +41,7 @@ SubmitInput {
     border: solid #ffffff;
     border-title-style: bold;
     /* same as the widget background */
-    background: #3D4659;
+    background: $main_background;
     padding: 0 1 0 1;
 }
 
