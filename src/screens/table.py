@@ -8,9 +8,10 @@ from screens.new_entry import NewEntryScreen
 from controller.screen_controller import ScreenController
 from controller.table_controller import TableController
 
+
 class TableScreen(Screen):
 
-    # CSS_PATH = "table.tcss"
+    CSS_PATH = "../styles/main_screen.tcss"
 
     BINDINGS = [
         ("ctrl+e", "new_entry", "New entry"),
@@ -26,9 +27,6 @@ class TableScreen(Screen):
 
     def compose(self) -> ComposeResult:
         self.table = MyTable(self.controller)
-        self.controller.populate_internal_table()
-        self.table.add_columns()
-        self.table.fill_table()
 
         yield SearchInput()
         yield self.table

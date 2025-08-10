@@ -2,7 +2,7 @@ from secrets import choice
 from string import printable
 from pyperclip import copy
 
-from model.table import Table
+from model.table import Table, Columns
 
 from helper.account import Account
 
@@ -12,7 +12,7 @@ class TableController:
         self.account = account
         self.table = Table()
 
-    def get_column_ordering(self) -> list[str]:
+    def get_column_ordering(self) -> Columns:
         return self.table.columns
 
     def populate_internal_table(self):

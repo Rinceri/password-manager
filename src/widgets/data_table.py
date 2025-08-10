@@ -1,7 +1,8 @@
 from textual.widgets import DataTable
 from textual import events
 from textual.message import Message
-from textual.widgets.data_table import RowDoesNotExist
+from textual.widgets.data_table import RowDoesNotExist, ColumnKey
+from textual.geometry import Size
 
 from screens.confirm import ConfirmScreen
 from controller.table_controller import TableController
@@ -26,14 +27,77 @@ class MyTable(DataTable):
         self.controller = controller
         self.digit_presses = TimeString(400 * 10**6)
 
-        super().__init__(cursor_type="row")
+        super().__init__(cursor_type="row", zebra_stripes=True, header_height=2)
+
+    def on_mount(self):
+        self.controller.populate_internal_table()
+        self.add_columns()
+        self.fill_table()
+
+        for column in self.columns_.columns:
+            if column.ratio > 0:
+                # since we will manually set these widths, I think its wise to set this to False. If I leave this to True, 
+                # ... I need to set content width for things to take effect
+                # and when downsizing table, confusing things happen when the content width > col width assigned by ratio
+                # the table width becomes total of all column content widths but then it resizes the columns perfectly
+                # this causes an empty region even after the columns ended, 
+                # ... which i assume is for the content width i truncated when setting it to width
+                self.columns[column.column_name].auto_width = False
+
+    def on_resize(self):
+        # prepare yourself, i myself have no idea how this works
+
+        # width of columns with no ratio (i.e. auto width/minimum width)
+        min_width_total = 0
+        # width of all columns
+        total_width = 0
+
+        # iterate through no ratio columns 
+        for column in self.columns_.columns:
+            if column.ratio == 0:
+                width = self.columns[ColumnKey(column.column_name)].width
+                min_width_total += width
+                total_width += width
+        
+        # get space we can use for filling out columns with ratioed width (ie table width - no ratio columns)
+        # subtracting by 2 more because it sometimes causes the table to size more than the width of the visible table
+        # this also prevents the horizontal scrollbar from appearing for split seconds which happened earlier
+        free_column_space = self.columns_.get_free_column_space(self.cell_padding, min_width_total, self.size.width) - 2
+
+        # now set width of columns with ratioed width
+        for column in self.columns_.columns:
+            # get width
+            width = self.columns_.get_width(column.column_name, free_column_space)
+
+            if column.ratio > 0:
+                self.columns[ColumnKey(column.column_name)].width = width
+                total_width += width
+        
+        # now heres what I don't understand. I need to manually size the datatable, which I don't get why
+        # if I don't set the height, everytime I downsize the table, the height of the table increases by 1
+        # ... or when i use fuzzy search on full screen, it increases the height by 1 only once
+        # if I don't set the size at all, when downsizing after adding a row or adding rows via fuzzy search on full screen
+        # ... the table width remains the same as the full screen width, while the column width adjusts to the new width
+        # Theres more stuff I don't understand, please see on_mount > setting auto_width to False
+
+        # BUG: when resizing the table/ adding/removing rows, 
+        # ...for a split second, it will show the scrollbars (when it doesn't have to)
+
+        # I think the bug and my confusion stems from the internal impl'tion of DataTable, e.g. look at _update_dimensions
+        height = self.row_count + self.header_height
+        self.virtual_size = Size(total_width, height)
+        self.refresh()
 
     def add_columns(self):
         """
         Add this table's columns before filling table
         """
-        super().add_columns(*self.controller.get_column_ordering())
-        
+        # get Columns object
+        # this kind of breaks the MVC because the view is directly interacting with the model
+        self.columns_ = self.controller.get_column_ordering()
+
+        for column in self.columns_.columns:
+            super().add_column(column.column_name, key = column.column_name)
 
     def fill_table(self):
         """
