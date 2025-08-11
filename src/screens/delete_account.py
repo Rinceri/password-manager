@@ -1,9 +1,10 @@
 from textual.containers import Vertical, Horizontal
-from textual.widgets import Input, Button, Static
+from textual.widgets import Button, Static
 from textual.screen import ModalScreen
 from textual.app import ComposeResult
 
 from helper.account import Account
+from widgets.submit_input import SubmitInput
 
 class DeleteController:
     def __init__(self, account: Account):
@@ -21,31 +22,33 @@ class DeleteAccountScreen(ModalScreen):
     """
     Screen when deleting account
     """
+    CSS_PATH = "../styles/modal_screens.tcss"
     BINDINGS = [
-        ("ctrl+x", "app.pop_screen", "Pop screen")
+        ("escape", "app.pop_screen", "Pop screen")
     ]
 
     def __init__(self, controller: DeleteController):
         self.controller = controller
-        super().__init__()
+        super().__init__(classes = "centered")
 
     def compose(self) -> ComposeResult:
         with Vertical():
-            yield Static("Are you sure you want to delete your account? Type in your master password to confirm.")
-            yield Input(placeholder="Password", password=True, id = "pword")
-            yield Static(id="info")
+            yield Static("Are you sure you want to delete your account?\nType in your master password to confirm.", id = "delete_title")
+            yield Static("Once your account is deleted, all records will be deleted forever", id = "warning")
+            yield SubmitInput(placeholder="Password", password=True, id = "pword")
+            yield Static(id="status")
             with Horizontal():
                 yield Button("Cancel", id="cancel")
-                yield Button("Delete account", id="submit", variant="error")
+                yield Button("Delete account", id="submit", classes="submit", variant="error")
 
     def on_button_pressed(self, event: Button.Pressed) -> None:
         if event.button.id == "submit":
-            result = self.controller.delete_account(self.query_one(Input).value)
+            result = self.controller.delete_account(self.query_one(SubmitInput).value)
             
             if result:
                 self.screen.dismiss(result)
             else:
-                self.query_one("#info", Static).update("Wrong password entered")
+                self.query_one("#status", Static).update("Wrong password entered")
             
         elif event.button.id == "cancel":
             self.screen.dismiss(False)

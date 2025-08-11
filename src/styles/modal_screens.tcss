@@ -1,6 +1,7 @@
 /* same as login background main widget */
 $modal_background: #3D4659
 $modal_border: tall #677085;
+$warning_red: #d6827a;
 
 #dialog {
     grid-size: 2;
@@ -37,11 +38,11 @@ ConfirmScreen Button {
     border: $modal_border;
 }
 
-NewEntryScreen Horizontal {
+ModalScreen Horizontal {
     height: auto;
 }
 
-#new_entry_vertical > SubmitInput {
+ModalScreen SubmitInput {
     background: $modal_background;
     border: round #ffffff 60%;
     border-title-style: bold;
@@ -62,5 +63,28 @@ NewEntryScreen Static {
 }
 
 #status {
-    color: #d6827a;
-} 
+    color: $warning_red;
+}
+
+DeleteAccountScreen > Vertical {
+    width: 61;
+    height: auto;
+    background: $modal_background;
+    padding: 1 2;
+    border: $modal_border;
+}
+
+DeleteAccountScreen Static {
+    padding: 0 1 1 1;
+    text-align: justify;
+}
+
+#warning {
+    color: $warning_red;
+    text-style: italic;
+}
+
+DeleteAccountScreen Button {
+    width: 50%;
+    margin: 0 1;
+}
