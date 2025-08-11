@@ -16,7 +16,7 @@ class LoginScreen(Screen):
     def __init__(self, controller: LoginController, switcher: ScreenController):
         self.controller = controller
         self.switcher = switcher
-        super().__init__(classes="centered")
+        super().__init__(classes="centered first_screen")
 
     def compose(self) -> ComposeResult:
         login_widget = LoginWidget(self.controller)

@@ -10,9 +10,11 @@ class RegisterScreen(Screen):
     """
     The login screen. First screen when opening the app
     """
+    CSS_PATH = "../styles/login.tcss"
+
     def __init__(self, screen_switcher: ScreenController):
         self.switcher = screen_switcher
-        super().__init__(classes="center_screen")
+        super().__init__(classes="centered first_screen")
 
     def compose(self) -> ComposeResult:
         yield RegisterWidget()

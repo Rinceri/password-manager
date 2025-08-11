@@ -1,12 +1,12 @@
 $background: #191918
 $main_background: #3D4659
 
-LoginScreen {
+.first_screen {
     background: $background
 }
 
 /* main widget */
-LoginWidget {
+.first_screen_main {
     width: auto;
     height: auto;
     background: $main_background;

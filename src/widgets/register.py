@@ -27,8 +27,8 @@ class VerticalButtons(Vertical):
         self.msg_widget.update(value)
 
     def compose(self) -> ComposeResult:
-        yield Button("Register",id="register_button", classes="submit")
-        yield Button("Back", id="back_button")
+        yield Button("Register",id="register_button", classes="submit elements")
+        yield Button("Back", id="back_button", classes = "elements")
 
     def field_empty(self, value: str) -> bool:
         return value.strip() == ""
@@ -75,11 +75,14 @@ class VerticalButtons(Vertical):
 
 
 class RegisterWidget(Vertical):
+    def __init__(self):
+        super().__init__(classes="centered first_screen_main")
+
     def compose(self) -> ComposeResult:
         # username submitInput widget
         username = SubmitInput(
             placeholder="Enter new username", 
-            classes="input",
+            classes="input elements",
             max_length=100,
             id = "new_username",
             name = "username"
@@ -91,7 +94,7 @@ class RegisterWidget(Vertical):
         password = SubmitInput(
             placeholder="Enter new password", 
             password=True, 
-            classes="input",
+            classes="input elements",
             id="new_password",
             name = "password"    
         )
@@ -102,14 +105,18 @@ class RegisterWidget(Vertical):
         re_password = SubmitInput(
             placeholder="Enter password again", 
             password=True, 
-            classes="input",
+            classes="input elements",
             id="new_password_again",
             name = "password"
         )
 
-        add_msg = Static(id = "additional_message")
+        re_password.border_title = "Password Again"
+
+
+        add_msg = Static(id = "additional_message", classes = "elements")
         
         # yield it all
+        yield Static("<< Password Manager >>", classes="elements", id = "title")
         yield username
         yield password
         yield re_password

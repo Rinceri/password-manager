@@ -59,7 +59,7 @@ class VerticalButtons(Vertical):
 class LoginWidget(Vertical):
     def __init__(self, controller: LoginController) -> None:
         self.controller = controller
-        super().__init__(classes="centered")
+        super().__init__(classes="centered first_screen_main")
 
     def compose(self) -> ComposeResult:
         username = SubmitInput(
