@@ -17,10 +17,8 @@ class MyTable(DataTable):
             super().__init__()
 
     BINDINGS = [
-        ("ctrl+c", "copy", "Copy password"),
         ("right", "page_down", "Move one page down"),
-        ("left", "page_up", "Move one page up"),
-        ("ctrl+d", "delete_entry", "Delete entry")
+        ("left", "page_up", "Move one page up")
     ]
 
     def __init__(self, controller: TableController):
@@ -138,10 +136,12 @@ class MyTable(DataTable):
         """
         self.add_row(id, website, username, key = str(id))
 
-    def action_copy(self) -> None:
+    def copy_cursor_password(self) -> None:
         """
         Copy password at cursor row
         """
+        if self.row_count < 1:
+            return
         try:
             _, website, username = self.get_row_at(self.cursor_row)
         except RowDoesNotExist:
@@ -150,8 +150,10 @@ class MyTable(DataTable):
         self.controller.copy_password_at(username, website)
         self.notify("Password has been copied", title="Copy successful", timeout=3)
 
-    def action_delete_entry(self) -> None:
+    def delete_cursor_row(self) -> None:
         """Delete entry at cursor row"""
+        if self.row_count < 1:
+            return
         try:
             _, website, username = self.get_row_at(self.cursor_row)
         except RowDoesNotExist:
@@ -189,4 +191,8 @@ class MyTable(DataTable):
             # move cursor to end of input
             inp.action_cursor_right()
             # focus on input widget
+            inp.focus()
+
+        elif event.key == "backspace":
+            inp = self.parent.query_one("Input", SearchInput)
             inp.focus()

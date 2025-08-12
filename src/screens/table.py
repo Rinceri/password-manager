@@ -1,6 +1,7 @@
 from textual.screen import Screen
 from textual.app import ComposeResult
 from textual.widgets import Footer
+from textual.binding import Binding
 
 from widgets.data_table import MyTable
 from widgets.search_input import SearchInput
@@ -14,9 +15,11 @@ class TableScreen(Screen):
     CSS_PATH = "../styles/main_screen.tcss"
 
     BINDINGS = [
-        ("ctrl+e", "new_entry", "New entry"),
-        ("escape", "logout", "Log out"),
-        ("ctrl+delete", "delete_profile", "Delete profile")
+        Binding("ctrl+e", "new_entry", "New entry", priority=True),
+        Binding("ctrl+c", "copy", "Copy password", priority=True),
+        Binding("ctrl+d", "delete_entry", "Delete entry", priority=True),
+        Binding("escape", "logout", "Log out", priority=True),
+        Binding("ctrl+delete", "delete_profile", "Delete profile", priority=True),
     ]
 
     def __init__(self, controller: TableController, screen_switcher: ScreenController):
@@ -41,6 +44,12 @@ class TableScreen(Screen):
 
         # this currently works without screen_switcher as it can directly be fed this controller
         self.app.push_screen(NewEntryScreen(self.controller), add_record)
+
+    def action_copy(self) -> None:
+        self.table.copy_cursor_password()
+    
+    def action_delete_entry(self) -> None:
+        self.table.delete_cursor_row()
 
     def action_logout(self) -> None:
         self.screen_switcher.to_login()
