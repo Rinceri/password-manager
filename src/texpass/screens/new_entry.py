@@ -3,9 +3,9 @@ from textual.widgets import Button, Static
 from textual.screen import ModalScreen
 from textual.app import ComposeResult
 
-from controller.table_controller import TableController
-from exceptions.exceptions import EntryAlreadyExists
-from widgets.submit_input import SubmitInput
+from texpass.controller.table_controller import TableController
+from texpass.exceptions.exceptions import EntryAlreadyExists
+from texpass.widgets.submit_input import SubmitInput
 
 class NewEntryScreen(ModalScreen):
     """

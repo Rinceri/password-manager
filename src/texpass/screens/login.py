@@ -1,10 +1,10 @@
 from textual.app import ComposeResult
 from textual.screen import Screen
 
-from widgets.login import LoginWidget
-from helper.switch_message import Switch
-from controller.login import LoginController
-from controller.screen_controller import ScreenController
+from texpass.widgets.login import LoginWidget
+from texpass.helper.switch_message import Switch
+from texpass.controller.login import LoginController
+from texpass.controller.screen_controller import ScreenController
 
 
 class LoginScreen(Screen):

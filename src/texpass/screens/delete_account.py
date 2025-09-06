@@ -3,8 +3,8 @@ from textual.widgets import Button, Static
 from textual.screen import ModalScreen
 from textual.app import ComposeResult
 
-from helper.account import Account
-from widgets.submit_input import SubmitInput
+from texpass.helper.account import Account
+from texpass.widgets.submit_input import SubmitInput
 
 class DeleteController:
     def __init__(self, account: Account):

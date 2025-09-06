@@ -1,5 +1,5 @@
 from textual.app import App
-from helper.account import Account
+from texpass.helper.account import Account
 
 
 class ScreenController:
@@ -8,12 +8,12 @@ class ScreenController:
         self.account = None
 
     def to_login(self):
-        from screens.login import LoginScreen, LoginController
+        from texpass.screens.login import LoginScreen, LoginController
 
         self.app.switch_screen(LoginScreen(LoginController(), self))
     
     def to_register(self):
-        from screens.register import RegisterScreen
+        from texpass.screens.register import RegisterScreen
 
         self.app.switch_screen(RegisterScreen(self))
 
@@ -23,8 +23,8 @@ class ScreenController:
 
         Sets Account object for this screen controller
         """
-        from screens.table import TableScreen
-        from controller.table_controller import TableController
+        from texpass.screens.table import TableScreen
+        from texpass.controller.table_controller import TableController
 
         self.account = account
         self.app.switch_screen(TableScreen(TableController(account), self))
@@ -33,8 +33,8 @@ class ScreenController:
         """
         First thing pushed when opening app
         """
-        from screens.login import LoginScreen
-        from controller.login import LoginController
+        from texpass.screens.login import LoginScreen
+        from texpass.controller.login import LoginController
 
         self.app.push_screen(LoginScreen(LoginController(), self))
 
@@ -44,7 +44,7 @@ class ScreenController:
 
         If successful, switches to login screen
         """
-        from screens.delete_account import DeleteAccountScreen, DeleteController
+        from texpass.screens.delete_account import DeleteAccountScreen, DeleteController
         
         def logout(status: bool):
             if status:

@@ -1,5 +1,6 @@
 from time import time_ns
 
+
 class TimeString:
     """
     Object that returns characters sent within a time chunk as a concatenated string

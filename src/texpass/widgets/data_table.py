@@ -4,10 +4,10 @@ from textual.message import Message
 from textual.widgets.data_table import RowDoesNotExist, ColumnKey
 from textual.geometry import Size
 
-from screens.confirm import ConfirmScreen
-from controller.table_controller import TableController
-from helper.timed_string import TimeString
-from widgets.search_input import SearchInput
+from texpass.screens.confirm import ConfirmScreen
+from texpass.controller.table_controller import TableController
+from texpass.helper.timed_string import TimeString
+from texpass.widgets.search_input import SearchInput
 
 class MyTable(DataTable):
     class Fuzzied(Message):

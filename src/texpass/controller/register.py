@@ -1,9 +1,9 @@
 from secrets import choice
 import string
 
-from helper.account import Account
-from helper.status import Status
-from exceptions.exceptions import UsernameAlreadyExists
+from texpass.helper.account import Account
+from texpass.helper.status import Status
+from texpass.exceptions.exceptions import UsernameAlreadyExists
 
 
 class RegisterController:

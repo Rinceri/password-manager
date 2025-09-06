@@ -16,11 +16,11 @@ class SearchInput(Input):
         """
         Posts a Fuzzied message
         """
-        from widgets.data_table import MyTable
+        from texpass.widgets.data_table import MyTable
         
         self.post_message(MyTable.Fuzzied(event.value))
 
     def action_to_table(self) -> None:
-        from widgets.data_table import MyTable
+        from texpass.widgets.data_table import MyTable
 
         self.parent.query_one(MyTable).focus()

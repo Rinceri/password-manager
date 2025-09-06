@@ -3,11 +3,11 @@ from textual.app import ComposeResult
 from textual.widgets import Footer
 from textual.binding import Binding
 
-from widgets.data_table import MyTable
-from widgets.search_input import SearchInput
-from screens.new_entry import NewEntryScreen
-from controller.screen_controller import ScreenController
-from controller.table_controller import TableController
+from texpass.widgets.data_table import MyTable
+from texpass.widgets.search_input import SearchInput
+from texpass.screens.new_entry import NewEntryScreen
+from texpass.controller.screen_controller import ScreenController
+from texpass.controller.table_controller import TableController
 
 
 class TableScreen(Screen):

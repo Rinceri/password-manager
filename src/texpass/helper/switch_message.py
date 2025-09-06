@@ -1,5 +1,7 @@
 from textual.message import Message
-from helper.account import Account
+
+from texpass.helper.account import Account
+
 
 class Switch(Message):
     """

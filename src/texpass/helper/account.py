@@ -6,10 +6,10 @@ from sqlite3 import connect, IntegrityError
 from cryptography.fernet import Fernet
 from base64 import urlsafe_b64encode
 
-from exceptions.exceptions import *
+from texpass.exceptions.exceptions import *
 
 # TODO use some kind of config file to get name 
-PASSWORDS_DATABASE = "../passwords.db"
+PASSWORDS_DATABASE = "passwords.db"
 
 
 class Account:

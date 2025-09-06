@@ -3,9 +3,9 @@ from textual.containers import Vertical
 from textual.widgets import Button, Static
 from textual import on
 
-from widgets.submit_input import SubmitInput
-from controller.login import LoginController
-from helper.switch_message import Switch
+from texpass.widgets.submit_input import SubmitInput
+from texpass.controller.login import LoginController
+from texpass.helper.switch_message import Switch
 
 
 class VerticalButtons(Vertical):

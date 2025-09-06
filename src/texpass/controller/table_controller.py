@@ -2,9 +2,8 @@ from secrets import choice
 from string import printable
 from pyperclip import copy
 
-from model.table import Table, Columns
-
-from helper.account import Account
+from texpass.model.table import Table, Columns
+from texpass.helper.account import Account
 
 
 class TableController:

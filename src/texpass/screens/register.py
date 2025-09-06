@@ -1,9 +1,9 @@
 from textual.app import ComposeResult
 from textual.screen import Screen
 
-from controller.screen_controller import ScreenController
-from widgets.register import RegisterWidget
-from helper.switch_message import Switch
+from texpass.controller.screen_controller import ScreenController
+from texpass.widgets.register import RegisterWidget
+from texpass.helper.switch_message import Switch
 
 
 class RegisterScreen(Screen):

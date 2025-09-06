@@ -1,6 +1,6 @@
-from helper.account import Account
-from helper.status import Status
-from exceptions.exceptions import UsernameDoesNotExist, WrongPassword
+from texpass.helper.account import Account
+from texpass.helper.status import Status
+from texpass.exceptions.exceptions import UsernameDoesNotExist, WrongPassword
 
 
 class LoginController:
