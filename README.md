@@ -4,9 +4,17 @@ This is currently a work in progress for a better text based user interface.
 
 The library used for making the UI is Textual.
 
-This currently works, however you must have a DB file already generated (which is done by running `start.py`).
+Try it out, this is currently deployed on testpypi:
+```sh
+$ pip install -i https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple texpass==1.0.0
+```
+Note: I was testing quite a lot so there are versions above this but they are older. v1.0.0 is the latest.
 
-To run the app, run `main.py` from root directory (that is, run `src/main.py`)
+And run with:
+```sh
+$ texpass
+```
+To quit application, ctrl + q
 
 Feel free to report any bugs or additional features.
 
