@@ -2,6 +2,8 @@
 
 Texpass is a password manager written in Python with a text-based user interface. It uses the Textual framework for the UI.
 
+![demo](assets/texpass_demo.mp4)
+
 ### Security features
 - Uses Argon2 hashing to store master password in database.
 - Encryption keys are derived from the master password, and hence never stored in database.
