@@ -1,4 +1,5 @@
 # Texpass - Password Manager for the Terminal
+[![PyPI](https://img.shields.io/pypi/v/texpass?label=PyPI)](https://pypi.org/project/texpass/)
 
 Texpass is a password manager written in Python with a text-based user interface. It uses the Textual framework for the UI.
 
