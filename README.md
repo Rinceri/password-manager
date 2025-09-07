@@ -1,13 +1,30 @@
-# Python Password Manager
+# Texpass - Password Manager for the Terminal
 
-### Steps to use:
-1. Run the `start.py` file (only first time)
-2. And you're good to go! Run `main.py` everytime you want to start the password manager.
+Texpass is a password manager written in Python with a text-based user interface. It uses the Textual framework for the UI.
 
-### Features
-- Only the hashed form of the master password is stored in database.
-- Encryption keys are derived from the master password, and hence never stored in database
+---
+
+https://github.com/user-attachments/assets/5cf6b56f-1e5c-4e2c-95e1-23c0d765631a
+
+### Security features
+- Uses Argon2 hashing to store master password in database.
+- Encryption keys are derived from the master password, and hence never stored in database.
 - Can generate securely random passwords
 
-### Disclaimer
-This project is for learning purposes mainly. It may not follow the best security standards and there may be flaws in the program. Feel free to report them or suggest new features. 
+### Installation
+This is currently available as a CLI tool and as a TUI.
+
+For the CLI version, please see the [v1.x branch](https://github.com/Rinceri/password-manager/tree/v1.x)
+
+The most up-to-date and actively maintained version is the TUI version. Available on PyPI:
+```sh
+python3 -m pip install -U texpass 
+```
+And run with:
+```sh
+texpass
+```
+The application can be quit by pressing the escape key.
+
+### Contributing
+Feel free to report any bugs or additional features.

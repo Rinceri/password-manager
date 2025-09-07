@@ -1,3 +1,4 @@
-argon2-cffi==21.3.0
-cryptography==41.0.1
-pyperclip==1.8.2
+textual>3.5.0
+argon2-cffi
+pyperclip
+cryptography

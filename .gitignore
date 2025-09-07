@@ -2,3 +2,5 @@ __pycache__/
 *.db
 test.py
 .venv/
+*.egg-info
+dist
