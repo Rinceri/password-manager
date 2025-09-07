@@ -1,21 +1,26 @@
-# Dev branch for password manager
+# Texpass - Password Manager for the Terminal
 
-This is currently a work in progress for a better text based user interface.
+Texpass is a password manager written in Python with a text-based user interface. It uses the Textual framework for the UI.
 
-The library used for making the UI is Textual.
+### Security features
+- Uses Argon2 hashing to store master password in database.
+- Encryption keys are derived from the master password, and hence never stored in database.
+- Can generate securely random passwords
 
-Try it out, this is currently deployed on testpypi:
+### Installation
+This is currently available as a CLI tool and as a TUI.
+
+For the CLI version, please see the [v1.x branch](https://github.com/Rinceri/password-manager/tree/v1.x)
+
+The most up-to-date and actively maintained version is the TUI version. Available on PyPI:
 ```sh
-$ pip install -i https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple texpass==1.0.0
+python3 -m pip install -U texpass 
 ```
-Note: I was testing quite a lot so there are versions above this but they are older. v1.0.0 is the latest.
-
 And run with:
 ```sh
-$ texpass
+texpass
 ```
-To quit application, ctrl + q
+The application can be quit by pressing the escape key.
 
+### Contributing
 Feel free to report any bugs or additional features.
-
-TODO: update this to add an explanation on how the key derivation works (ie takes raw password, adds salt to it and gets key from its hash. This hash is different from login as login only uses raw password for hash)
