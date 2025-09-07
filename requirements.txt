@@ -1,4 +1,5 @@
 textual>3.5.0
+textual-dev
 argon2-cffi
 pyperclip
 cryptography
