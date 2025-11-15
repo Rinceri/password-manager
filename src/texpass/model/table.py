@@ -1,4 +1,5 @@
 from textual.fuzzy import Matcher
+from texpass.exceptions.exceptions import InvalidArguments
 
 
 class Columns:
@@ -30,7 +31,20 @@ class Columns:
             
             if self.total_ratio == 0:
                 self.zero_ratio_cols += 1
-    
+
+    def get_column_name(self, query_col: str = None, index: int = None) -> str:
+        """
+        Get proper column name from either order index or by non-case-sensitive name
+        """
+        if query_col is not None:
+            for colname in self.order.keys():
+                if query_col.lower() == colname.lower():
+                    return colname
+        elif index is not None:
+            return self.columns[index].column_name
+        else:
+            raise InvalidArguments("Need to fill in atleast one argument")
+
     def get_free_column_space(self, cell_padding: int, total_min_width: int, table_width: int) -> int:
         """
         Get free space for use in filling up columns with ratioed width.
@@ -122,3 +136,9 @@ class Table:
         self.rows.append((last, website, username))
 
         return last
+    
+    def edit_record(self, record_id: int, website: str, username: str):
+        """
+        Sets the values for a record in the table, based on id
+        """
+        self.rows[record_id - 1] = (record_id, website, username)

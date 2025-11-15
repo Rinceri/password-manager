@@ -3,7 +3,7 @@ from textual.app import ComposeResult
 from textual.containers import Grid
 from textual.widgets import Button, Label
 
-
+# delete entry
 class ConfirmScreen(ModalScreen):
     CSS_PATH = "../styles/modal_screens.tcss"
 

@@ -15,7 +15,8 @@ class TableScreen(Screen):
     CSS_PATH = "../styles/main_screen.tcss"
 
     BINDINGS = [
-        Binding("ctrl+e", "new_entry", "New entry", priority=True),
+        Binding("ctrl+n", "new_entry", "New entry", priority=True),
+        Binding("ctrl+e", "edit_entry", "Edit entry", priority=True),
         Binding("ctrl+c", "copy", "Copy password", priority=True),
         Binding("ctrl+d", "delete_entry", "Delete entry", priority=True),
         Binding("escape", "logout", "Log out", priority=True),
@@ -44,6 +45,9 @@ class TableScreen(Screen):
 
         # this currently works without screen_switcher as it can directly be fed this controller
         self.app.push_screen(NewEntryScreen(self.controller), add_record)
+
+    def action_edit_entry(self) -> None:
+        self.table.edit_cursor_row()
 
     def action_copy(self) -> None:
         self.table.copy_cursor_password()

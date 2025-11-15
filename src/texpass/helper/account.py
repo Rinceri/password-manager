@@ -82,6 +82,22 @@ class Account:
         else:
             con.close()
 
+    def edit_entry(self, entry_username: str, entry_website: str, entry_password: str):
+        con = connect(PASSWORDS_DATABASE)
+
+        try:
+            with con:
+                con.execute(
+                    "UPDATE passwords SET username = ?, website = ?, encrypted_password = ? \
+                        WHERE account_name = ?", 
+                        (entry_username, entry_website, entry_password, self.username)
+                )
+        except IntegrityError:
+            con.close()
+            raise EntryAlreadyExists()
+        else:
+            con.close()
+
     def delete_entry(self, entry_username: str, entry_website):
         con = connect(PASSWORDS_DATABASE)
 
