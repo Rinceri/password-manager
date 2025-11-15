@@ -9,3 +9,6 @@ class UsernameDoesNotExist(Exception):
 
 class WrongPassword(Exception):
     pass
+
+class InvalidArguments(Exception):
+    pass

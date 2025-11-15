@@ -5,6 +5,7 @@ from textual.widgets.data_table import RowDoesNotExist, ColumnKey
 from textual.geometry import Size
 
 from texpass.screens.confirm import ConfirmScreen
+from texpass.screens.edit_entry import EditEntryScreen
 from texpass.controller.table_controller import TableController
 from texpass.helper.timed_string import TimeString
 from texpass.widgets.search_input import SearchInput
@@ -135,6 +136,26 @@ class MyTable(DataTable):
         Note that this does not commit to database. Use controller for that.
         """
         self.add_row(id, website, username, key = str(id))
+
+    def edit_cursor_row(self) -> None:
+        """Edit entry at cursor row"""
+        if self.row_count < 1:
+            return
+        try:
+            record_id, website, username = self.get_row_at(self.cursor_row)
+            raw_password = self.controller.get_password_at(username, website)
+        except RowDoesNotExist:
+            return
+
+        def process_edit(record: dict):
+            """
+            3 entries: edited: bool, website: str, username: str
+            """
+            if record['edited']:
+                self.update_cell(str(record_id), self.columns_.get_column_name("website"), record['website'], update_width = True)
+                self.update_cell(str(record_id), self.columns_.get_column_name("username"), record['username'], update_width = True)
+
+        self.app.push_screen(EditEntryScreen(self.controller, record_id, username, website, raw_password), process_edit)
 
     def copy_cursor_password(self) -> None:
         """

@@ -65,6 +65,31 @@ class TableController:
         id = self.table.add_record(website, username)
 
         return id
+    
+    def edit_entry(
+            self, 
+            record_id: int, 
+            old_username: str, old_website: str, 
+            entry_username: str, entry_website: str, entry_password: str
+        ):
+        """
+        Updates a record in the database. Also updates it in the internal table.
+
+        Returns ID of internal table record
+
+        Raises EntryAlreadyExists if username and website is not unique
+        """
+        encrypted = self.encrypt_password(entry_password)
+        self.account.edit_entry(old_username, old_website, entry_username, entry_website, encrypted.decode())
+        self.table.edit_record(record_id, entry_website, entry_username)
+    
+    def get_password_at(self, username: str, website: str):
+        """
+        Get raw password at specified website and username
+
+        Only to be used for viewing it
+        """
+        return self.account.get_entry_password(username, website)
 
     def copy_password_at(self, username: str, website: str):
         """

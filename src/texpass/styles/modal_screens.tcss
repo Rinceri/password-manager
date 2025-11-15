@@ -49,14 +49,14 @@ ModalScreen SubmitInput {
     padding: 0 1;
 }
 
-NewEntryScreen Button {
+.entrybutton {
     background: #282c36;
     border: hkey #282c36 40%;
     width: 50%;
     margin: 0 1;
 }
 
-NewEntryScreen Static {
+.entrystatic {
     content-align: center middle;
     text-style: bold;
     padding: 0 0 1 0;
