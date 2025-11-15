@@ -149,11 +149,11 @@ class MyTable(DataTable):
 
         def process_edit(record: dict):
             """
-            3 entries: edited: bool, updated_website: str, updated_username: str
+            3 entries: edited: bool, website: str, username: str
             """
             if record['edited']:
-                self.update_cell(str(record_id), self.columns_.get_column_name("website"), record['updated_website'], update_width = True)
-                self.update_cell(str(record_id), self.columns_.get_column_name("username"), record['updated_username'], update_width = True)
+                self.update_cell(str(record_id), self.columns_.get_column_name("website"), record['website'], update_width = True)
+                self.update_cell(str(record_id), self.columns_.get_column_name("username"), record['username'], update_width = True)
 
         self.app.push_screen(EditEntryScreen(self.controller, record_id, username, website, raw_password), process_edit)
 
