@@ -36,10 +36,10 @@ class NewEntryScreen(ModalScreen):
             yield username_input
             yield website_input
             yield password_input
-            yield Static(id = "status")
+            yield Static(id = "status", classes="entrystatic")
             with Horizontal():
-                yield Button("Submit", classes = "submit")
-                yield Button("Cancel", id = "cancel")
+                yield Button("Submit", classes = "submit entrybutton")
+                yield Button("Cancel", id = "cancel", classes = "entrybutton")
 
     def on_button_pressed(self, event: Button.Pressed) -> None:
         if event.button.id == "cancel":

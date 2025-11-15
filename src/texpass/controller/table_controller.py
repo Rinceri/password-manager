@@ -66,7 +66,12 @@ class TableController:
 
         return id
     
-    def edit_entry(self, record_id: int, username: str, website: str, plain_password: str) -> int:
+    def edit_entry(
+            self, 
+            record_id: int, 
+            old_username: str, old_website: str, 
+            entry_username: str, entry_website: str, entry_password: str
+        ):
         """
         Updates a record in the database. Also updates it in the internal table.
 
@@ -74,9 +79,9 @@ class TableController:
 
         Raises EntryAlreadyExists if username and website is not unique
         """
-        encrypted = self.encrypt_password(plain_password)
-        self.account.edit_entry(username, website, encrypted.decode())
-        self.table.edit_record(record_id, website, username)
+        encrypted = self.encrypt_password(entry_password)
+        self.account.edit_entry(old_username, old_website, entry_username, entry_website, encrypted.decode())
+        self.table.edit_record(record_id, entry_website, entry_username)
     
     def get_password_at(self, username: str, website: str):
         """
