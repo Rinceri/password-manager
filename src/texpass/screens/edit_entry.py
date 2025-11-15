@@ -30,13 +30,13 @@ class EditEntryScreen(ModalScreen):
         with Vertical(id="new_entry_vertical"):
             yield Static("Edit Entry")
             
-            new_username = SubmitInput(value=self.old_username, placeholder="Username", id = "edited_uname")
+            new_username = SubmitInput(value=self.old_username, placeholder="Username", id = "edited_uname", select_on_focus = False)
             new_username.border_title = "Username"
             
-            new_website = SubmitInput(value=self.old_website ,placeholder="Website", id = "edited_web")
+            new_website = SubmitInput(value=self.old_website ,placeholder="Website", id = "edited_web", select_on_focus = False)
             new_website.border_title = "Website"
 
-            new_password = SubmitInput(value=self.old_raw_password, placeholder="Password", id="edited_pword", password=True)
+            new_password = SubmitInput(value=self.old_raw_password, placeholder="Password", id="edited_pword", password=True, select_on_focus = False)
             new_password.border_title = "Password"
 
             yield new_username
