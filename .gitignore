@@ -4,3 +4,4 @@ test.py
 .venv/
 *.egg-info
 dist
+cred*.json
