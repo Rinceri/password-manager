@@ -64,4 +64,10 @@ class TableScreen(Screen):
         self.screen_switcher.push_delete()
 
     def action_sync_cloud(self) -> None:
-        self.app.push_screen(SyncCloudScreen())
+        def refresh_table(fetched: bool):
+            if fetched:
+                self.controller.populate_internal_table()
+                self.table.clear()
+                self.table.fill_table()
+
+        self.app.push_screen(SyncCloudScreen(), refresh_table)

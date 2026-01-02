@@ -4,6 +4,8 @@ from textual.screen import ModalScreen
 from textual.app import ComposeResult
 
 from texpass.model.drive_sync import DriveSync
+from texpass.controller.table_controller import TableController
+
 
 class SyncCloudScreen(ModalScreen):
     """
@@ -35,6 +37,13 @@ class SyncCloudScreen(ModalScreen):
             if event.button.id == "drive_upload":
                 drive.upload()
                 self.query_one("#status", Static).update("File has been uploaded under texpass folder")
+                self.dismiss(False)
             elif event.button.id == "drive_download":
                 drive.fetch()
-                self.query_one("#status", Static).update("File has been downloaded. TEMP: RESTART CLIENT")
+                self.query_one("#status", Static).update("File has been downloaded.")
+                self.dismiss(True)
+
+
+# TODO
+# refresh table after downloading from drive
+# handle errors
