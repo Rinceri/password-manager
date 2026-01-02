@@ -44,6 +44,7 @@ class NewEntryScreen(ModalScreen):
     def on_button_pressed(self, event: Button.Pressed) -> None:
         if event.button.id == "cancel":
             self.app.pop_screen()
+            return
 
         username = self.query_one("#usname").value
         website = self.query_one("#webs").value
