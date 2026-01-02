@@ -1,4 +1,5 @@
 import os.path
+import io
 
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
@@ -7,7 +8,7 @@ from googleapiclient.discovery import build
 from googleapiclient.http import MediaFileUpload, MediaIoBaseDownload
 from googleapiclient.errors import HttpError
 
-import io
+from texpass.exceptions.exceptions import DriveException, FolderNotFound, DatabaseNotFound
 
 class DriveSync:
     SCOPES = ["https://www.googleapis.com/auth/drive"]
@@ -140,15 +141,6 @@ class DriveSync:
         with open('passwords.db', 'wb') as password_file:
             password_file.write(file.getvalue())
 
-
-class DriveException(Exception):
-    pass
-
-class FolderNotFound(Exception):
-    pass
-
-class DatabaseNotFound(Exception):
-    pass
 
 if __name__ == "__main__":
     drive = DriveSync.from_oauth()
