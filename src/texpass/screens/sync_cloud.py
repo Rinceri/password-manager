@@ -4,7 +4,7 @@ from textual.screen import ModalScreen
 from textual.app import ComposeResult
 
 from texpass.model.drive_sync import DriveSync
-from texpass.controller.table_controller import TableController
+from texpass.exceptions.exceptions import *
 
 
 class SyncCloudScreen(ModalScreen):
@@ -31,7 +31,8 @@ class SyncCloudScreen(ModalScreen):
     def on_button_pressed(self, event: Button.Pressed) -> None:
         if event.button.id == "cancel":
             self.app.pop_screen()
-        else:
+            return
+        try:
             drive = DriveSync.from_oauth()
 
             if event.button.id == "drive_upload":
@@ -42,8 +43,9 @@ class SyncCloudScreen(ModalScreen):
                 drive.fetch()
                 self.query_one("#status", Static).update("File has been downloaded.")
                 self.dismiss(True)
+        except Exception as e:
+            self.query_one("#status", Static).update(f"An error occured: {e}")
 
 
 # TODO
-# refresh table after downloading from drive
 # handle errors
