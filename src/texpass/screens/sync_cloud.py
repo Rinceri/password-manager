@@ -3,7 +3,7 @@ from textual.widgets import Button, Static
 from textual.screen import ModalScreen
 from textual.app import ComposeResult
 
-from texpass.model.drive_sync import DriveSync
+from texpass.model.drive_sync import OAuthDrive
 from texpass.exceptions.exceptions import *
 
 
@@ -32,8 +32,14 @@ class SyncCloudScreen(ModalScreen):
         if event.button.id == "cancel":
             self.app.pop_screen()
             return
+
+        auth = OAuthDrive("token.json")
+        if not auth.creds_exist():
+            self.query_one("#status", Static).update("Please setup cloud syncing with --cloud option when starting the app")
+            return
+
         try:
-            drive = DriveSync.from_oauth()
+            drive = auth.get_drive_instance()
 
             if event.button.id == "drive_upload":
                 drive.upload()
@@ -45,7 +51,3 @@ class SyncCloudScreen(ModalScreen):
                 self.dismiss(True)
         except Exception as e:
             self.query_one("#status", Static).update(f"An error occured: {e}")
-
-
-# TODO
-# handle errors
