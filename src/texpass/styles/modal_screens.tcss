@@ -56,6 +56,15 @@ ModalScreen SubmitInput {
     margin: 0 1;
 }
 
+Vertical > .entrybutton {
+    width: 100%;
+    height: auto;
+}
+
+Vertical {
+    height: auto;
+}
+
 .entrystatic {
     content-align: center middle;
     text-style: bold;

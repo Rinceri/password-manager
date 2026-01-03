@@ -12,3 +12,13 @@ class WrongPassword(Exception):
 
 class InvalidArguments(Exception):
     pass
+
+# drive sync exceptions
+class DriveException(Exception):
+    pass
+
+class FolderNotFound(Exception):
+    pass
+
+class DatabaseNotFound(Exception):
+    pass

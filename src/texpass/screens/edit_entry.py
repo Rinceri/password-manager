@@ -50,7 +50,8 @@ class EditEntryScreen(ModalScreen):
     def on_button_pressed(self, event: Button.Pressed) -> None:
         if event.button.id == "cancel":
             self.app.pop_screen()
-
+            return
+        
         username = self.query_one("#edited_uname").value
         website = self.query_one("#edited_web").value
         password = self.query_one("#edited_pword").value

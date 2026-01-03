@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "texpass"
-version = "2.1.0"
+version = "2.1.1"
 authors = [
   { name="Rinceri", email="rinceri@protonmail.com" },
 ]
@@ -21,7 +21,10 @@ dependencies = [
     "textual>3.5.0",
     "argon2-cffi",
     "pyperclip",
-    "cryptography"
+    "cryptography",
+    "google-api-python-client",
+    "google-auth-httplib2",
+    "google-auth-oauthlib"
 ]
 
 [project.urls]

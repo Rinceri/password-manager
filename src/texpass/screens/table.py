@@ -6,6 +6,7 @@ from textual.binding import Binding
 from texpass.widgets.data_table import MyTable
 from texpass.widgets.search_input import SearchInput
 from texpass.screens.new_entry import NewEntryScreen
+from texpass.screens.sync_cloud import SyncCloudScreen
 from texpass.controller.screen_controller import ScreenController
 from texpass.controller.table_controller import TableController
 
@@ -19,6 +20,7 @@ class TableScreen(Screen):
         Binding("ctrl+e", "edit_entry", "Edit entry", priority=True),
         Binding("ctrl+c", "copy", "Copy password", priority=True),
         Binding("ctrl+d", "delete_entry", "Delete entry", priority=True),
+        Binding("ctrl+s", "sync_cloud", "Sync with Drive", priority=True),
         Binding("escape", "logout", "Log out", priority=True),
         Binding("ctrl+delete", "delete_profile", "Delete profile", priority=True),
     ]
@@ -60,3 +62,12 @@ class TableScreen(Screen):
 
     def action_delete_profile(self) -> None:
         self.screen_switcher.push_delete()
+
+    def action_sync_cloud(self) -> None:
+        def refresh_table(fetched: bool):
+            if fetched:
+                self.controller.populate_internal_table()
+                self.table.clear()
+                self.table.fill_table()
+
+        self.app.push_screen(SyncCloudScreen(), refresh_table)
