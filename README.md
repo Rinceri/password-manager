@@ -45,6 +45,9 @@ This only works with Google Drive at the moment. Follow the steps below to enabl
 ```sh
 python3 -m texpass --cloud
 ```
+> [!NOTE]
+> This command produces an authorization link; if clicking on it shows an error, try copying the link and pasting it in your browser.
+
 7. Create a folder named "texpass" in your Google Drive
 
 Now when entering the application, using `Ctrl+S` allows you to either upload your database file to Drive under texpass folder, or download it from there.
